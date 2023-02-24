@@ -1,0 +1,13 @@
+<template>
+    <lightning-dual-listbox name="tipos"
+                            label="Filtrar por tipos"
+                            source-label="Disponible"
+                            selected-label="Seleccionado"
+                            field-level-help="Selecciona el tipo de pokemon"
+                            options={opciones}
+                            max={max}
+                            onchange={handleChange}></lightning-dual-listbox>
+    <div class="slds-box" >
+        <p>Los valores seleccionados son: {selectedType}</p>
+    </div>
+</template>

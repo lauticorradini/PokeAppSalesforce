@@ -1,0 +1,30 @@
+<template>
+	<lightning-card title={pokemon.Name} class="pokemon-tile">
+        <div class="slds-var-p-horizontal_x-small pokemon-tile-body">
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <template if:true={pokemon.Imagen__c}>
+                        <img 
+                            src={pokemon.Imagen__c} 
+                            class="poke-silhouette hoverable" 
+                            onclick={handleImgClick}/>
+                    </template>
+                </div>
+                <div class="slds-media__body">
+                    <div class="tipos-container">
+                        <template for:each={pokemonClass} for:item="tipo">
+                            <lightning-badge 
+                                            key={tipo.name} 
+                                            label={tipo.name} 
+                                            class={tipo.class}>
+                            </lightning-badge>
+                        </template>
+                    </div> 
+                    <p class="slds-var-m-bottom_medium pokemon-details">N°: {pokemon.ExtId__c}</p>                   
+                    <p class="slds-var-m-bottom_medium pokemon-details">Altura: {pokemon.Altura__c} m</p>
+                    <p class="slds-var-m-bottom_medium pokemon-details">Peso: {pokemon.Peso__c} kg</p>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

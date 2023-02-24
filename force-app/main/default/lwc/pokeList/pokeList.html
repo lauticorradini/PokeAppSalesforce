@@ -1,0 +1,49 @@
+<template>
+	<lightning-card title="Pokemons" icon-name="custom:custom99">
+		<div class="slds-card__body slds-card__body_inner">
+			<template if:true={pokemons.data}>
+				<lightning-input type="search"
+								onchange={handleSearchTermChange}
+								variant="label-hidden"
+								class="slds-var-m-bottom_small"
+								label="Buscar"
+								placeholder="Buscar Pokemon"
+								value={searchTerm}>
+				</lightning-input>
+				<div class="slds-grid slds-wrap">
+					<div class="slds-col slds-size_1-of-2">
+						<c-generation-filter ongenerationchange={handleFilter}></c-generation-filter>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<c-type-filter ontypechange={handleType}></c-type-filter>
+					</div>
+				</div>
+				<div class="slds-grid slds-wrap">
+					<div class="slds-col slds-size_1-of-2">
+						<div class="slds-box slds-box_x-small">
+							<p>Cantidad de pokemones: {countRecords}</p>
+						</div>
+					</div>
+				</div>
+				<lightning-layout multiple-rows="true" pull-to-boundary="small">
+					<template for:each={filteredPokemons} for:item="pokemon">
+						<lightning-layout-item key={pokemon.Id} size="3" class="slds-var-p-around_x-small">
+							<c-poke-tile pokemon={pokemon} onpokeview={handlePokeView}></c-poke-tile>
+						</lightning-layout-item>
+					</template>
+				</lightning-layout>
+				<template if:false={hasResults}>
+					<div class="slds-align_absolute-center slds-var-m-vertical_small">
+						No encontramos resultados...
+					</div>
+				</template>
+			</template>
+			<!-- Data failed to load -->
+			<template if:true={pokemons.error}>
+				<div class="slds-text-color_error">
+					Ocurrio un error mientras cargaba la lista de Pokemons
+				</div>
+			</template>
+		</div>
+	</lightning-card>
+</template>
