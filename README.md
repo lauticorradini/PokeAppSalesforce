@@ -1,3 +1,11 @@
+# PokeAPP
+Salesforce App using the PokeApi showing 898 Pokemon from generation 1 to generation 8. 
+
+Still under development.
+
+Link to the API: https://pokeapi.co/
+
+
 # Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
