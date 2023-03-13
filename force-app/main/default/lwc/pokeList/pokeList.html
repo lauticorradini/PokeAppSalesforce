@@ -1,7 +1,7 @@
 <template>
 	<lightning-card title="Pokemons" icon-name="custom:custom99">
 		<div class="slds-card__body slds-card__body_inner">
-			<template if:true={pokemons.data}>
+			<template if:true={filteredPokemons}>
 				<lightning-input type="search"
 								onchange={handleSearchTermChange}
 								variant="label-hidden"
@@ -13,6 +13,9 @@
 				<div class="slds-grid slds-wrap">
 					<div class="slds-col slds-size_1-of-2">
 						<c-generation-filter ongenerationchange={handleFilter}></c-generation-filter>
+						<div class="slds-box slds-box_x-small">
+							<p>Cantidad de pokemones: {countRecords}</p>
+						</div>
 					</div>
 					<div class="slds-col slds-size_1-of-2">
 						<c-type-filter ontypechange={handleType}></c-type-filter>
@@ -20,9 +23,7 @@
 				</div>
 				<div class="slds-grid slds-wrap">
 					<div class="slds-col slds-size_1-of-2">
-						<div class="slds-box slds-box_x-small">
-							<p>Cantidad de pokemones: {countRecords}</p>
-						</div>
+						
 					</div>
 				</div>
 				<lightning-layout multiple-rows="true" pull-to-boundary="small">
@@ -39,7 +40,7 @@
 				</template>
 			</template>
 			<!-- Data failed to load -->
-			<template if:true={pokemons.error}>
+			<template if:true={error}>
 				<div class="slds-text-color_error">
 					Ocurrio un error mientras cargaba la lista de Pokemons
 				</div>

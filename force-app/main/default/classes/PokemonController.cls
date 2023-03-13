@@ -1,7 +1,7 @@
 global with sharing class PokemonController {
 
     @AuraEnabled(cacheable=true)
-    global static List<Pokemon__c> getAllPokemons(){
+    global static Pokemon__c[] getAllPokemons(){
         // Obtiene todos los registros de Pokemon__c y los ordena por ExtId__c
         return [SELECT Id,Name, ExtId__c, Generacion__c, Tipos__c, Altura__c, Peso__c, Habilidad__c, Imagen__c,
         Ataque__c, Defensa__c, Vida__c, Velocidad__c, Slot1__c, Slot2__c, Slot3__c, Slot4__c
@@ -62,5 +62,25 @@ global with sharing class PokemonController {
         FROM Pokemon__c
         WHERE Tipos__c = :type
         ORDER By ExtId__c];
+    }
+
+    @AuraEnabled(cacheable=true)
+    global static Pokemon__c[] getFilteredPokemons(String searchTerm, Integer generation, String types){
+        searchTerm = searchTerm.trim();
+        if(searchTerm == '' && generation == 0 && types == null) {
+            return getAllPokemons();
+        }
+        searchTerm = '%' + searchTerm + '%';
+        String query = 'SELECT Name, Id, ExtId__c, Generacion__c, Tipos__c, Imagen__c, Peso__c, Altura__c FROM Pokemon__c WHERE Name LIKE :searchTerm';
+        
+        if(generation != 0){
+            query += ' AND Generacion__c =: generation';
+        }
+        if(types != ''){
+            query += ' AND Tipos__c =: types';
+        }
+        query += ' ORDER BY ExtId__c';
+        
+        return Database.query(query);
     }
 }
