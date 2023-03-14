@@ -1,5 +1,8 @@
 # PokeAPP
-Salesforce App using the PokeApi showing 898 Pokemon from generation 1 to generation 8. 
+Pokedex with 898 Pokemons
+You will be able to perform different functions:
+- Search filters, generation and type selection work simultaneously
+- Display the record of a pokemon by selecting its picture
 
 Still under development.
 
