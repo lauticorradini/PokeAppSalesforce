@@ -8,11 +8,15 @@ export default class PokeList extends NavigationMixin(LightningElement) {
 	filteredPokemons;
 	countRecords = 0;
 	error;
+	//para crear paginas
+	page;
+	maxPage;
 	@wire(getFilteredPokemons,{searchTerm :'$searchTerm', generation: '$selectedGeneration', types : '$selectedType'})
 	wiredPokemonsLoad({data, error}){
 		if(data){
 			if (this.filteredPokemons != data){
 				this.filteredPokemons = data;
+				this.page = 1 ;
 			}
 			if (this.filteredPokemons){
 				this.countRecords = Object.keys(this.filteredPokemons).length;
@@ -60,4 +64,16 @@ export default class PokeList extends NavigationMixin(LightningElement) {
 		});
 	}
 
+	// INTENTO DE PASAR DE PAGINA 
+	previousPage(){
+		if(this.page > 1){
+			this.page -= 1;
+		}
+	}
+
+	nextPage(){
+		if(this.page < this.maxPage){
+			this.page += 1;
+		}
+	}
 }

@@ -13,26 +13,23 @@
 				<div class="slds-grid slds-wrap">
 					<div class="slds-col slds-size_1-of-2">
 						<c-generation-filter ongenerationchange={handleFilter}></c-generation-filter>
-						<div class="slds-box slds-box_x-small">
-							<p>Cantidad de pokemones: {countRecords}</p>
-						</div>
 					</div>
 					<div class="slds-col slds-size_1-of-2">
 						<c-type-filter ontypechange={handleType}></c-type-filter>
 					</div>
 				</div>
-				<div class="slds-grid slds-wrap">
-					<div class="slds-col slds-size_1-of-2">
-						
-					</div>
+				<div class="slds-box slds-box_x-small">
+					<p>Cantidad de pokemones: {countRecords}</p>
 				</div>
+				<!-- TODO botones para cambiar de paginas-->
 				<lightning-layout multiple-rows="true" pull-to-boundary="small">
 					<template for:each={filteredPokemons} for:item="pokemon">
-						<lightning-layout-item key={pokemon.Id} size="3" class="slds-var-p-around_x-small">
+						<lightning-layout-item key={pokemon.Id} size="4" class="slds-var-p-around_x-small">
 							<c-poke-tile pokemon={pokemon} onpokeview={handlePokeView}></c-poke-tile>
 						</lightning-layout-item>
 					</template>
 				</lightning-layout>
+				<!--Si no encuentra Pokemones-->
 				<template if:false={hasResults}>
 					<div class="slds-align_absolute-center slds-var-m-vertical_small">
 						No encontramos resultados...

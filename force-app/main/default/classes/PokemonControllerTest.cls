@@ -1,5 +1,9 @@
 @isTest
 public class PokemonControllerTest {
+    //TODO Test for getGenerations and getFilteredPokemons 
+    //testGetAllPokemons passed
+    //testGetGenerations & testGetFilteredPokemons X 
+    // test average: 50%
     static testMethod void testGetAllPokemons() {
         List<Pokemon__c> expectedPokemons = new List<Pokemon__c>();
         for (Integer i = 1; i <= 10; i++) {
@@ -17,32 +21,6 @@ public class PokemonControllerTest {
             System.assertEquals(expectedPokemons[i].ExtId__c, actualPokemons[i].ExtId__c, 'ExtId does not match for pokemon ' + i);
             // other fields assertions can be added here
         }
-    }
-    
-    static testMethod void testSearchPokemon(){
-        Test.startTest();
-        // Create some test data
-        List<Pokemon__c> testPokemons = new List<Pokemon__c>();
-        for (Integer i = 1; i <= 10; i++) {
-            Pokemon__c p = new Pokemon__c(Name='Pokemon ' + i);
-            testPokemons.add(p);
-        }
-        insert testPokemons;
-
-        // Test search with empty search term
-        Pokemon__c[] result = PokemonController.searchPokemon('');
-        System.assertEquals(10, result.size(), 'Unexpected number of results');
-
-        // Test search with valid search term
-        result = PokemonController.searchPokemon('2');
-        System.assertEquals(1, result.size(), 'Unexpected number of results');
-        System.assertEquals('Pokemon 2', result[0].Name, 'Unexpected name');
-
-        // Test search with no matching results
-        result = PokemonController.searchPokemon('xyz');
-        System.assertEquals(0, result.size(), 'Unexpected number of results');
-
-        Test.stopTest();
     }
     
     static testMethod void testGetGenerations(){
@@ -64,4 +42,34 @@ public class PokemonControllerTest {
 
         Test.stopTest();
     }
+    
+ 	static testMethod void testGetFilteredPokemons() {
+        // Test with null search term / empty Search Term
+        List<Pokemon__c> pokemons = PokemonController.getFilteredPokemons(null, 0, null);
+        System.assertEquals(PokemonController.getAllPokemons().size(), pokemons.size());
+        
+        // Test negative scenario
+        String searchTerm = 'invalidsearchterm';
+        pokemons = PokemonController.getFilteredPokemons(searchTerm, 0, null);
+        System.assertEquals(0, pokemons.size());
+        
+        // Test positive scenario
+        searchTerm = 'Pikachu';
+        pokemons = PokemonController.getFilteredPokemons(searchTerm, 0, null);
+        System.assertNotEquals(0, pokemons.size());
+
+        // Test generation filter
+        Integer generation = 1;
+        pokemons = PokemonController.getFilteredPokemons(null, generation, null);
+        for (Pokemon__c pokemon : pokemons) {
+            System.assertEquals(generation, pokemon.Generacion__c);
+        }
+
+        // Test types filter
+        String types = 'Fire';
+        pokemons = PokemonController.getFilteredPokemons(null, 0, types);
+        for (Pokemon__c pokemon : pokemons) { 
+            System.assertEquals(types, pokemon.Tipos__c);
+        }
+    }  
 }

@@ -1,11 +1,11 @@
 <template>
-    <lightning-card title="Filtrar por Generacion">
+    <lightning-card title="Filtrar por Generación">
         <lightning-combobox label="Seleccione una Generación"
                             value={selectedGeneration}
-                            placeholder="Buscar pokemones por Generacion"
+                            placeholder="Buscar Pokemones por Generación"
                             options={opciones}
                             onchange={handleChange}>
         </lightning-combobox>
-        <h3>Generacion seleccionada: {selectedGeneration}</h3>
+        <p>Generacion seleccionada: {selectedGeneration}</p>
     </lightning-card>    
 </template>
