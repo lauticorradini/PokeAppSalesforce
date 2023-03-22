@@ -35,12 +35,12 @@ global with sharing class PokemonController {
         searchTerm = '%' + searchTerm + '%';
         //Consulta SOQL inicial
         String query = 'SELECT Name, Id, ExtId__c, Generacion__c, Tipos__c, Imagen__c, Peso__c, Altura__c FROM Pokemon__c WHERE Name LIKE :searchTerm';
-    
+        
         //Si la generacion es entre 1 y 8, se agrega a la consulta SOQL
         if(generation != 0){
             query += ' AND Generacion__c =: generation';
         }
-        ////Si el tipo es valido, se agrega a la consulta SOQL
+        //Si el tipo es valido, se agrega a la consulta SOQL
         if(types != ''){
             query += ' AND Tipos__c =: types';
         }

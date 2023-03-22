@@ -43,8 +43,8 @@ public class PokemonControllerTest {
         Test.stopTest();
     }
     
-    static testMethod void testGetFilteredPokemons(){
-        // Test getting all pokemons when all parameters are empty or null
+    static testMethod void testGetFilteredPokemonsIncomplete(){
+        // Test para obtener todos los pokemones sin que haya parametros
         List<Pokemon__c> expectedPokemons = new List<Pokemon__c>();
         for (Integer i = 1; i <= 10; i++) {
             Pokemon__c p = new Pokemon__c(Name='Pokemon ' + i, ExtId__c=i);
@@ -60,6 +60,16 @@ public class PokemonControllerTest {
         }
     }
     
+    static testMethod void testGetFilteredPokemonsComplete(){
+        // Test para obtener el pokemon especifico con nombre generacion y tipo
+        Pokemon__c pokeFull = new Pokemon__c(Name = 'Pikachu', ExtId__c = 25, Tipos__c = 'Electric');
+        insert pokeFull;
+        String searchTerm = 'Pikachu';
+        String types = 'Electric';
+        Integer gen = 1;
+        List<Pokemon__c> actualPokemon = PokemonController.getFilteredPokemons(searchTerm, gen, types);
+        System.assertEquals(actualPokemon.size(), 1, 'No se encontro el Pokemon');
+    }
     static testMethod void testSearchFilter(){
         Pokemon__c poke = new Pokemon__c(Name='Pikachu');
         insert poke;

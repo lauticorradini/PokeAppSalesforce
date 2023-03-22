@@ -1,6 +1,9 @@
 import { NavigationMixin } from 'lightning/navigation';
 import { LightningElement, wire } from 'lwc';
 import getFilteredPokemons from '@salesforce/apex/PokemonController.getFilteredPokemons';
+
+const PAGE_SIZE = 20;
+
 export default class PokeList extends NavigationMixin(LightningElement) {
 	searchTerm = '';
 	selectedGeneration = 0;
@@ -11,7 +14,11 @@ export default class PokeList extends NavigationMixin(LightningElement) {
 	//para crear paginas
 	page;
 	maxPage;
-	@wire(getFilteredPokemons,{searchTerm :'$searchTerm', generation: '$selectedGeneration', types : '$selectedType'})
+	@wire(getFilteredPokemons,{
+		searchTerm :'$searchTerm', 
+		generation: '$selectedGeneration', 
+		types : '$selectedType'
+	})
 	wiredPokemonsLoad({data, error}){
 		if(data){
 			if (this.filteredPokemons != data){
@@ -48,8 +55,6 @@ export default class PokeList extends NavigationMixin(LightningElement) {
 			const type = this.selectedType.join(';');
 			this.selectedType = type;
 		}
-		console.log('tipos');
-		console.log(this.selectedType);
 	}
 	
 	handlePokeView(event){
@@ -64,7 +69,7 @@ export default class PokeList extends NavigationMixin(LightningElement) {
 		});
 	}
 
-	// INTENTO DE PASAR DE PAGINA 
+	// TODO pagination
 	previousPage(){
 		if(this.page > 1){
 			this.page -= 1;
