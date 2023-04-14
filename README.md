@@ -1,8 +1,9 @@
 # PokeAPP
 Pokedex with 898 Pokemons
 You will be able to perform different functions:
-- Search filters, generation and type selection work simultaneously
-- Display the record of a pokemon by selecting its picture
+- Search, generation and type selection filters work simultaneously.
+- Display the record of a pokemon by selecting its picture.
+- Pagination
 
 Still under development.
 
