@@ -1,0 +1,35 @@
+<template>
+    <lightning-layout>
+        <lightning-layout-item>
+            <lightning-button label="Primera Página"
+                icon-name="utility:jump_to_left"
+                onclick={firstPageHandler}
+                disabled={disablePrevious}>
+            </lightning-button>
+            <lightning-button label = "Anterior" 
+                icon-name="utility:chevronleft"
+                onclick={previousHandler}
+                disabled={disablePrevious}>
+            </lightning-button>
+        </lightning-layout-item>
+        <!---->
+        <lightning-layout-item flexibility="grow">
+            <p class="slds-text-align_center">Mostrando {currentPage} de {totalPage} páginas</p>
+        </lightning-layout-item>
+        <!---->
+        <lightning-layout-item>
+            <lightning-button label = "Siguiente" 
+                icon-name="utility:chevronright"
+                icon-position="right"
+                onclick={nextHandler}
+                disabled={disableNext}>
+            </lightning-button>
+            <lightning-button label="Última Página"
+                icon-name="utility:jump_to_right"
+                icon-position="right"
+                onclick={lastPageHandler}
+                disabled={disableNext}>
+            </lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
